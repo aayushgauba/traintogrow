@@ -1,0 +1,55 @@
+{%load static%}
+<link href="{% static 'css/animate.css' %}" rel="stylesheet">
+<link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+<link href="{% static 'css/slick.css' %}" rel="stylesheet">
+<link href="{% static 'css/slick-theme.css' %}" rel="stylesheet">
+ <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" /> 
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+<link href="{% static 'css/style.css' %}" rel="stylesheet">
+<style>
+    html, body {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+}
+</style>
+<footer class="bg-dark text-white py-4">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <h5>About Us</h5>
+                <p>Train to Grow is a leading provider of marijuana cultivation classes, helping individuals learn the art and science of growing marijuana.</p>
+            </div>
+            <div class="col-md-4 mb-3">
+                <h5>Quick Links</h5>
+                <ul class="list-unstyled">
+                    <li><a href="{% url 'index' %}" class="text-white">Home</a></li>
+                    <li><a href="{% url 'about' %}" class="text-white">About Us</a></li>
+                    <li><a href="{% url 'contact' %}" class="text-white">Contact</a></li>
+                    <li><a href="{% url 'classType' %}" class="text-white">Class Type</a></li>
+                </ul>
+            </div>
+            <div class="col-md-4 mb-3">
+                <h5>Contact Us</h5>
+                <p>Email: info@train2grow.com</p>
+                <p>Phone: (123) 456-7890</p>
+                <p>Address: 1234 Grow St, Green City, GC 56789</p>
+            </div>
+        </div>
+        <div class="text-center">
+            <p>&copy; 2024 Train to Grow. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+
+<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+</body>
+
+</html>

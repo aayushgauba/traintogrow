@@ -1,0 +1,26 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <!-- Include the header partial -->
+    {% include 'partials/header.html' %}
+    
+    <!-- Main content area -->
+    <main>
+        {% block content %}
+        <!-- Content from child templates will be inserted here -->
+        {% endblock %}
+    </main>
+    
+    <!-- Include the footer partial -->
+    {% include 'partials/footer.html' %}
+    
+    <!-- Optional JavaScript files -->
+    <script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>

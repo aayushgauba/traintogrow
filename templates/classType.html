@@ -1,0 +1,166 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+
+{% block content %}
+<!-- Banner -->
+<div class="banner">
+
+    <div id="bannerCarousel" class="carousel slide mt-4" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="{% static 'images/banner-thumbnail-1.jpg' %}" class="d-block w-100" alt="image">
+            </div>
+            <div class="carousel-item">
+                <img src="{% static 'images/banner-thumbnail-2.jpg' %}" class="d-block w-100" alt="image">
+            </div>
+            <div class="carousel-item">
+                <img src="{% static 'images/banner-thumbnail-3.jpg' %}" class="d-block w-100" alt="image">
+            </div>
+            <div class="carousel-item">
+                <img src="{% static 'images/banner-thumbnail-4.jpg' %}" class="d-block w-100" alt="image">
+            </div>
+            <div class="carousel-item">
+                <img src="{% static 'images/banner-thumbnail-5.jpg' %}" class="d-block w-100" alt="image">
+            </div>
+            <div class="carousel-item">
+                <img src="{% static 'images/banner-thumbnail-6.jpg' %}" class="d-block w-100" alt="image">
+            </div>
+            <div class="carousel-item">
+                <img src="{% static 'images/banner-thumbnail-7.jpg' %}" class="d-block w-100" alt="image">
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#bannerCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#bannerCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div></div>
+
+
+<!-- Class type Section Begin -->
+    
+    <div class="class__type__content pt-5 pb-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-10">
+                    <div class="section-content">
+                        <h2 class="heading">Class Type</h2>
+                        <p>We'll go through cannabis breeding, cultivation, and processing subjects. We'll discuss cultivation conditions, plant requirements like the amount of light, care routines, drying, and curing. The fundamentals of cannabis extraction, purification, and other post-harvesting methods will be covered in the learning session</p>
+
+                        <ul>
+                            <li><strong>In Person :</strong>This training course is held online, so you can join in from anywhere. The in-person training covers everything you need to develop premium cannabis products on your own. In addition, you'll gain a solid understanding of introductory botany and discover the best growth practices for your first plants. </li>
+                            <li><strong>On Video :</strong>The video training will cover topics pertaining to cannabis breeding, cultivation, and processing. We'll discuss cultivation conditions, plant requirements like lighting, care routines, drying, and curing. In addition, the fundamentals of cannabis extraction, purification, and other post-harvesting methods will also be covered. In short, the curriculum would be the same, and the mode to learn it will depend upon your convenience. </li>
+                        </ul>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="all__in__one__tab">
+        <div class="container">
+            <div class="row all__in__boxes">
+                <div class="col-12 pb-4">
+                    <div class="section-content text-center">
+                        <h2 class="heading">All In One</h2>
+                        <p>Our upcoming October classes will include all three classes for one low price!</p>
+                    </div>
+                </div>
+
+                <div class="col-5">
+                    <div class="all__in__one_img">
+                        <img src="{% static 'images/all-in-one-image.jpg' %}" class="imgFluid" alt="">
+                    </div>
+                </div>
+
+                <div class="col-7">
+                    <div class="all__in__content section-content">
+                        <h2 class="heading">Buy Videos Online</h2>
+                        <p>The video training will cover topics pertaining to cannabis breeding, cultivation, and processing. We'll discuss cultivation conditions, plant requirements like lighting, care routines, drying, and curing. In addition, the fundamentals of cannabis extraction, purification, and other post-harvesting methods will also be covered. In short, the curriculum would be the same, and the mode to learn it will depend upon your convenience. </p>
+
+                        <div class="all__in__content_tab">
+                            <h4>Entry Level</h4>
+                            <p>Start with our entry-level course if you are a newbie. You will learn about the botany of marijuana, such as the introduction and population, and how cannabis plant extracts can influence your body and mind.</p>
+                        </div>
+
+                        <div class="all__in__content_tab">
+                            <h4>Get Schooled by Train to Grow</h4>
+                            <p>Start with our entry-level course if you are a newbie. You will learn about the botany of marijuana, such as the introduction and population, and how cannabis plant extracts can influence your body and mind.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="clone__farming_tab pt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <a href="{% static 'images/placeholder.mp4' %}" data-fancybox="gallery"  class="clone__farming__box">
+                        <div class="section-content">
+                            <h2 class="heading">Clone Farming (1 hour)</h2>
+                            <p>Everything you need to know to grow your own cannabis plants. Beginners will learn to start plants from a seed or a clone, by cutting clones off from mother plants, then place clones in a tray as easy as carrots in a farmer’s garden.  You’ll learn to grow your first plant, clone it, and build their own tray of top quality marijuana plants, plus secrets of the trade like carrot-topping to help your clones take root. </p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="clone__farming_tab pt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <a href="{% static 'images/video-transplanting.mp4' %}" data-fancybox="gallery"  class="clone__farming__box">
+                        <div class="section-content">
+                            <h2 class="heading">Transplanting (1 hour)</h2>
+                            <p>Transplanting clones into cups, buckets, and eventually into the bud room. Each step in the growing process – from seedling/cloning, to vegetation, to bud - is covered in detail to ensure you wind up with healthy, high quality marijuana buds.</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="clone__farming_tab pt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <a href="{% static 'images/placeholder.mp4' %}" data-fancybox="gallery" class="clone__farming__box">
+                        <div class="section-content">
+                            <h2 class="heading">Safety (30 minutes)</h2>
+                            <p>Learn to prevent mold, mildew, and spider mites! We teach you all the best practices and secret techniques to ensure that nothing sabotages your grow room.</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="clone__farming_tab pt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="clone__farming__box">
+                        <div class="section-content">
+                            <p>Most importantly, we teach you to do all of these steps without breaking the law. Our mission is to train individuals to grow the highest quality marijuana for personal use, within the law</p>
+
+                            <p><strong>Cropping: </strong> It’s time for the payoff! The cropping class teaches you to cut a plant down, harvest the bud, plus bubbling techniques to create the best of the best finished product; ready to roll.</p>
+
+                            <p><strong>Train to Rolls:  </strong> Enjoy the fruits of your labor. We train you the best way to break up, roll, and smoke weed in a pen, pipe, or paper – however you want to enjoy it.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.getElementById('classType').className = 'active';
+    </script>
+{% endblock %}
