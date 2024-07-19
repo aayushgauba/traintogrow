@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login as auth_login
 from django.contrib import messages
-from .models import Courses
+from .models import Courses, Invoice
 from django.contrib.auth.hashers import make_password, check_password
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.template.loader import render_to_string
@@ -68,17 +68,22 @@ def buy_course(request, course_id):
     token = request.POST.get('stripeToken')
     try:
         charge = stripe.Charge.create(
-            amount=float(course.Price)/100,
+            amount=int(float(course.Price)/100),
             currency='usd',
             description=course.Title,
             source=token,
         )
+        invoice = Invoice.objects.get(Course_id = course_id, profile_id = request.user.id)
+        invoice.Paid = True
+        invoice.save()
         return render(request, 'payment_success.html')
     except stripe.error.StripeError:
         return render(request, 'payment_error.html')
 
+@login_required
 def course_detail(request, course_id):
     course = Courses.objects.get(id=course_id)
+    invoice = Invoice.objects.create(Course_id = course.id, profile_id = request.user.id, Paid = False)
     context = {
         'course': course,
         'stripe_publishable_key': settings.STRIPE_PUBLISHABLE_KEY,
@@ -118,6 +123,11 @@ def signup(request):
             messages.error(request, 'Passwords do not match')
     return render(request, 'signup.html')
 
+def invoices(request):
+    invoices = Invoice.objects.filter(profile_id = request.user.id)
+    print(invoices)
+    return render(request,'invoices.html', {"invoices":invoices})
+
 def PasswordResetView(request):
     if request.method == 'POST':
         email = request.POST['email']
@@ -153,6 +163,18 @@ def reset(request, uidb64, token):
         return render(request, 'passwordReset.html')
     else:
         return render(request, 'email/verify.html',{'user':User.objects.get(pk=uid)})
+
+
+def profile(request):
+    if request.method == 'POST':
+        first_name = request.POST['first_name']
+        last_name = request.POST['last_name']
+        user = User.objects.get(id = request.user.id)
+        user.first_name = first_name
+        user.last_name = last_name
+        user.save()
+        redirect("profile")
+    return render(request, "profile.html")
 
 def activate(request, uidb64, token):
     try:
