@@ -98,6 +98,8 @@ def courses(request):
 @require_POST
 def buy_course(request, course_id):
     course = Courses.objects.get(id=course_id)
+    if Invoice.objects.get(Course_id = course_id, profile_id = request.user.id).exists():
+        return redirect("courses")
     token = request.POST.get('stripeToken')
     try:
         charge = stripe.Charge.create(
@@ -118,7 +120,7 @@ def buy_course(request, course_id):
 @login_required
 def course_detail(request, course_id):
     course = Courses.objects.get(id=course_id)
-    invoice = Invoice.objects.create(Course_id = course.id, profile_id = request.user.id, Paid = False)
+    Invoice.objects.create(Course_id = course.id, profile_id = request.user.id, Paid = False)
     context = {
         'course': course,
         'stripe_publishable_key': settings.STRIPE_PUBLISHABLE_KEY,
