@@ -34,9 +34,8 @@ urlpatterns = [
     path('course/<int:course_id>/', views.course_detail, name='course_detail'),
     path('profile', views.profile, name='profile'),
     path('invoices', views.invoices, name='invoices'),
-    
+    path('invoices/<int:invoice_id>', views.invoiceDetail, name='invoiceDetail'),
+    path('coursework/<int:course_id>/', views.coursework, name='coursework'),
+    path('file/<int:file_id>/', views.fileView, name='fileView'),
 
-    # path('reset-password/done', views.PasswordResetDoneView, name='password_reset_done'),
-    # path('reset-password/confirm/<uidb64>/<token>', views.PasswordResetConfirmView, name='password_reset_confirm'),
-    # path('reset-password/complete', views.PasswordResetCompleteView, name='password_reset_complete'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

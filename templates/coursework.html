@@ -1,0 +1,59 @@
+{% extends 'partials/base.html' %}
+
+{% block title %}Coursework{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <h1 class="text-center mb-4">{{ course.Title }}</h1>
+
+    <div class="card mb-4">
+        <div class="card-body">
+            <h5 class="card-title">Course Description</h5>
+            <p class="card-text">{{ course.Description }}</p>
+        </div>
+    </div>
+
+    {% if user.is_superuser %}
+    <div class="card mb-4">
+        <div class="card-body">
+            <h5 class="card-title">Add Files to Course</h5>
+            <form method="post" action="{% url 'coursework' course.id %}" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="fileTitle" class="form-label">File Title</label>
+                    <input type="text" class="form-control" id="fileTitle" name="file_title" required>
+                </div>
+                <div class="mb-3">
+                    <label for="fileDescription" class="form-label">File Description</label>
+                    <textarea class="form-control" id="fileDescription" name="file_description" rows="3" required></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="fileUpload" class="form-label">Upload File</label>
+                    <input type="file" class="form-control" id="fileUpload" name="file_upload" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Add File</button>
+            </form>
+        </div>
+    </div>
+    {% endif %}
+
+    <h2 class="text-center mb-4">Course Files</h2>
+    {% if course_files %}
+    <div class="row">
+        {% for file in course_files %}
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ file.title }}</h5>
+                        <p class="card-text">{{ file.description }}</p>
+                        <a href="{% url 'fileView' file.id %}" class="btn btn-primary" target="_blank">View File</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <p class="text-center">No files added to this course yet.</p>
+    {% endif %}
+</div>
+{% endblock %}

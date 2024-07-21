@@ -1,0 +1,34 @@
+{% extends 'partials/base.html' %}
+
+{% block title %}View File{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <h1 class="text-center mb-4">{{ file.title }}</h1>
+
+    <!-- File Viewing -->
+    <div class="card">
+        <div class="card-body">
+            <p class="card-text">{{ file.description }}</p>
+
+            <!-- File Viewing Based on Type -->
+            {% if file.file.name|slice:"-4:" == ".pdf" %}
+                <!-- PDF Viewer (No download option) -->
+                <iframe src="{{ file.file.url }}#toolbar=0" style="width: 100%; height: 600px; border: none;" allow="autoplay"></iframe>
+            {% elif file.file.name|slice:"-4:" == ".mp4" %}
+                <!-- Video Player (No download option) -->
+                <video controls style="width: 100%;" oncontextmenu="return false;" controlsList="nodownload">
+                    <source src="{{ file.file.url }}" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            {% elif file.file.name|slice:"-4:" == ".jpg" or file.file.name|slice:"-4:" == ".jpeg" or file.file.name|slice:"-4:" == ".png" %}
+                <!-- Image Viewer (No download option) -->
+                <img src="{{ file.file.url }}" alt="{{ file.title }}" style="width: 100%; height: auto;" oncontextmenu="return false;">
+            {% else %}
+                <!-- For other file types -->
+                <p>Cannot preview this file type. <a href="{{ file.file.url }}" target="_blank">Click here to open it in a new tab.</a></p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

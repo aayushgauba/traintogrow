@@ -3,7 +3,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login as auth_login
 from django.contrib import messages
-from .models import Courses, Invoice
+from .models import Courses, Invoice, CourseFile
+from .forms import FileUploadForm
 from django.contrib.auth.hashers import make_password, check_password
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.template.loader import render_to_string
@@ -17,7 +18,6 @@ import stripe
 from django.conf import settings
 from django.shortcuts import render, redirect
 from django.views.decorators.http import require_POST
-
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
 def index(request):
@@ -49,6 +49,24 @@ def login(request):
             messages.error(request, 'Invalid username or password.')
         
     return render(request, 'login.html')
+
+@login_required
+def fileView(request, file_id):
+    file = CourseFile.objects.get(id=file_id)
+    return render(request, 'viewFile.html', {'file': file})
+
+@login_required
+def coursework(request, course_id):
+    course = Courses.objects.get(id=course_id)
+    course_files = CourseFile.objects.filter(course=course)
+    if request.method == 'POST':
+        title = request.POST.get('file_title')
+        description = request.POST.get('file_description')
+        file = request.FILES.get('file_upload')
+        if title and description and file:
+            CourseFile.objects.create(course=course, title=title, description=description, file=file)
+            return redirect('coursework', course_id=course.id)
+    return render(request, 'coursework.html', {'course': course, 'course_files': course_files})
 
 @login_required
 def courses(request):
@@ -140,10 +158,20 @@ def signup(request):
             messages.error(request, 'Passwords do not match')
     return render(request, 'signup.html')
 
+@login_required
 def invoices(request):
+    courses = Courses.objects.all()
     invoices = Invoice.objects.filter(profile_id = request.user.id)
-    print(invoices)
-    return render(request,'invoices.html', {"invoices":invoices})
+    return render(request,'invoices.html', {"invoices":invoices, "courses":courses})
+
+@login_required
+def invoiceDetail(request, invoice_id):
+    if(request.user.id == Invoice.objects.get(id = invoice_id).profile_id):
+        invoice = Invoice.objects.get(id = invoice_id)
+        course = Courses.objects.get(id = invoice.Course_id)
+        return render(request,'invoiceDetail.html', {"invoice":invoice, "course":course})
+    else:
+        return redirect("invoices")
 
 def PasswordResetView(request):
     if request.method == 'POST':

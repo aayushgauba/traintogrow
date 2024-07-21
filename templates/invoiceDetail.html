@@ -1,0 +1,32 @@
+{% extends 'partials/base.html' %}
+{% load currency_filters %}
+{% load static %}
+
+{% block content %}
+
+<main class="main-content">
+    <div class="container my-5">
+        <h1 class="text-center mb-4">Invoice Details</h1>
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">Invoice #{{ invoice.id }}</h5>
+                        <p class="card-text"><strong>Date:</strong> {{ invoice.Date }}</p>
+
+                        <h5 class="mt-4">Course Details</h5>
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ course.Title }}</h5>
+                                <p class="card-text">{{ course.Description }}</p>
+                                <p class="card-text"><strong>Price:</strong> ${{ course.Price|cents_to_dollars|floatformat:2 }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+{% endblock %}
