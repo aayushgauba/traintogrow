@@ -3,7 +3,6 @@
 {% load static %}
 
 {% block content %}
-{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,11 +18,9 @@
 </head>
 
 <body>
-    <!-- Courses Section -->
     <div class="container my-5">
         <h1 class="text-center mb-4">Our Courses</h1>
-        
-        <!-- Add Course Form (Visible only to superusers) -->
+
         {% if user.is_superuser %}
         <div class="card mb-4">
             <div class="card-body">
@@ -47,26 +44,49 @@
             </div>
         </div>
         {% endif %}
-        {% if courses %}
-        {% for course in courses %}
+
+        <h2 class="text-center mb-4">My Courses</h2>
+        {% if newCourses %}
         <div class="row">
-            <div class="col-md-4 mb-3">
-                <div class="card">
-                    <img src="" class="card-img-top" alt="">
-                    <div class="card-body">
-                        <h5 class="card-title">{{course.Title}}</h5>
-                        <p class="card-text">{{course.Description}}</p>
-                        <p class="card-text"><strong>Price:${{ course.Price|cents_to_dollars|floatformat:2 }}</strong></p>
-                        <a href="{% url 'course_detail' course.id %}" class="btn btn-primary">Buy Course</a>
+            {% for course in newCourses %}
+                <div class="col-md-4 mb-3">
+                    <div class="card">
+                        <img src="" class="card-img-top" alt="">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ course.Title }}</h5>
+                            <p class="card-text">{{ course.Description }}</p>
+                            <p class="card-text"><strong>Price: ${{ course.Price|cents_to_dollars|floatformat:2 }}</strong></p>
+                        </div>
                     </div>
                 </div>
-            </div>
+            {% endfor %}
         </div>
-        {%endfor%}
-        {%endif%}
+        {% else %}
+        <p class="text-center">No courses purchased yet.</p>
+        {% endif %}
+
+        <h2 class="text-center mb-4">Available Courses</h2>
+        {% if courses %}
+        <div class="row">
+            {% for course in courses %}
+                <div class="col-md-4 mb-3">
+                    <div class="card">
+                        <img src="" class="card-img-top" alt="">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ course.Title }}</h5>
+                            <p class="card-text">{{ course.Description }}</p>
+                            <p class="card-text"><strong>Price: ${{ course.Price|cents_to_dollars|floatformat:2 }}</strong></p>
+                            <a href="{% url 'course_detail' course.id %}" class="btn btn-primary">Buy Course</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <p class="text-center">No courses available at the moment.</p>
+        {% endif %}
     </div>
 </body>
 
 </html>
-
 {% endblock %}

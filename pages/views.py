@@ -57,9 +57,24 @@ def courses(request):
         description = request.POST['description']
         price = request.POST['price']
         if title and description and price:
-            Courses.objects.create(Title = title, Description = description, Price = price)
+            Courses.objects.create(Title=title, Description=description, Price=price)
+
     courses = Courses.objects.all()
-    return render(request, "courses.html", {"user":request.user, "courses":courses})
+    user_invoices = Invoice.objects.filter(profile_id=request.user.id)
+    
+    if user_invoices.exists():
+        invoiced_course_ids = user_invoices.values_list('Course_id', flat=True)
+        my_courses = Courses.objects.filter(id__in=invoiced_course_ids)
+        available_courses = courses.exclude(id__in=invoiced_course_ids)
+    else:
+        my_courses = []
+        available_courses = courses
+
+    return render(request, 'courses.html', {
+        'newCourses': my_courses,
+        'courses': available_courses,
+        'user_invoices': user_invoices
+    })
 
 @login_required
 @require_POST
@@ -68,7 +83,7 @@ def buy_course(request, course_id):
     token = request.POST.get('stripeToken')
     try:
         charge = stripe.Charge.create(
-            amount=int(float(course.Price)/100),
+            amount=course.Price,
             currency='usd',
             description=course.Title,
             source=token,
@@ -78,6 +93,8 @@ def buy_course(request, course_id):
         invoice.save()
         return render(request, 'payment_success.html')
     except stripe.error.StripeError:
+        invoice = Invoice.objects.get(Course_id = course_id, profile_id = request.user.id)
+        invoice.delete()
         return render(request, 'payment_error.html')
 
 @login_required
