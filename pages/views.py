@@ -98,8 +98,6 @@ def courses(request):
 @require_POST
 def buy_course(request, course_id):
     course = Courses.objects.get(id=course_id)
-    if Invoice.objects.get(Course_id = course_id, profile_id = request.user.id).exists():
-        return redirect("courses")
     token = request.POST.get('stripeToken')
     try:
         charge = stripe.Charge.create(
