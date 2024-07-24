@@ -21,7 +21,8 @@ from django.views.decorators.http import require_POST
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
 def index(request):
-    return render(request, "index.html")
+    courses = Courses.objects.all()
+    return render(request, "index.html", {"courses" : courses})
 
 def about(request):
     return render(request, "about.html")
@@ -118,13 +119,17 @@ def buy_course(request, course_id):
 @login_required
 def course_detail(request, course_id):
     course = Courses.objects.get(id=course_id)
-    Invoice.objects.create(Course_id = course.id, profile_id = request.user.id, Paid = False)
-    context = {
-        'course': course,
-        'stripe_publishable_key': settings.STRIPE_PUBLISHABLE_KEY,
-    }
-    return render(request, 'buyCourse.html', context)
-
+    existing_invoice = Invoice.objects.filter(Course_id=course.id, profile_id=request.user.id).first()
+    if not existing_invoice:
+        Invoice.objects.create(Course_id = course.id, profile_id = request.user.id, Paid = False)
+        context = {
+            'course': course,
+            'stripe_publishable_key': settings.STRIPE_PUBLISHABLE_KEY,
+        }
+        return render(request, 'buyCourse.html', context)
+    else:
+        return redirect("courses")
+    
 @login_required
 def logout(request):
     auth_logout(request)
