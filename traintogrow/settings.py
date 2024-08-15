@@ -112,9 +112,7 @@ USE_TZ = True
 STATIC_ROOT = BASE_DIR / 'static'  # This will create a folder named 'staticfiles' in your base directory
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
-STATICFILES_DIRS = (
-    BASE_DIR/'static',
-)
+
 STATIC_URL = '/static/'
 
 # Default primary key field type
