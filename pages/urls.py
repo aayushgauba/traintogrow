@@ -37,5 +37,4 @@ urlpatterns = [
     path('invoices/<int:invoice_id>', views.invoiceDetail, name='invoiceDetail'),
     path('coursework/<int:course_id>/', views.coursework, name='coursework'),
     path('file/<int:file_id>/', views.fileView, name='fileView'),
-
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
