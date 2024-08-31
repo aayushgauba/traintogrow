@@ -29,6 +29,7 @@ urlpatterns = [
     path('courses', views.courses, name='courses'),
     path('activation/sucess', views.account_activation_sent, name='account_activation_sent'),
     path('reset-password', views.PasswordResetView, name='password_reset'),
+    path('sitemap', views.sitemap, name='sitemap'),
     path('logout/', views.logout, name='logout'),
     path('buy-course/<int:course_id>/', views.buy_course, name='buy_course'),
     path('course/<int:course_id>/', views.course_detail, name='course_detail'),

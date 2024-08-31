@@ -1,5 +1,4 @@
-from django.shortcuts import render
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect,HttpResponse
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login as auth_login
 from django.contrib import messages
@@ -239,3 +238,6 @@ def activate(request, uidb64, token):
         return redirect('account_activation_sent')
     else:
         return render(request, 'email/verify.html',{'user':User.objects.get(pk=uid)})
+
+def sitemap(request):
+    return HttpResponse(open('templates/sitemap.xml').read(), content_type='text/xml')
