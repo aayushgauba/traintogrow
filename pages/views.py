@@ -92,7 +92,8 @@ def courses(request):
     return render(request, 'courses.html', {
         'newCourses': my_courses,
         'courses': available_courses,
-        'user_invoices': user_invoices
+        'user_invoices': user_invoices,
+        'supercourses': courses
     })
 
 @login_required

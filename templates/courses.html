@@ -29,8 +29,26 @@
                 </form>
             </div>
         </div>
+        {% if courses %}
+        <div class="row">
+            {% for course in courses %}
+                <div class="col-md-4 mb-3">
+                    <div class="card">
+                        <img src="" class="card-img-top" alt="">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ course.Title }}</h5>
+                            <p class="card-text">{{ course.Description }}</p>
+                            <p class="card-text"><strong>Price: ${{ course.Price|cents_to_dollars|floatformat:2 }}</strong></p>
+                            <a href="{% url 'coursework' course.id %}" class="btn btn-primary">View Course</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
         {% endif %}
-
+        {% endif %}
+    
+    {% if not user.is_superuser %}
         <h2 class="text-center mb-4">My Courses</h2>
         {% if newCourses %}
         <div class="row">
@@ -73,5 +91,5 @@
         <p class="text-center">No courses available at the moment.</p>
         {% endif %}
     </div>
-
+{%endif%}
     {%endblock%}
